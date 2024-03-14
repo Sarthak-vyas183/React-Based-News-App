@@ -71,7 +71,7 @@ static propTypes = {
           <div className="row my-4">
           {this.state.articles && this.state.articles.map((element) => {
               return    <div className="col-md-4" key={element.url}>
-                  <NewsItem  title={element.title?element.title.slice(0,45):""} description = {element.description?element.description.slice(0,88):""} imgUrl = {element.urlToImage} newUrl = {element.url}/>
+                  <NewsItem  title={element.title?element.title.slice(0,45):""} description = {element.description?element.description.slice(0,88):""} imgUrl = {element.urlToImage} newUrl = {element.url} author = {element.author} date = {element.publishedAt} source = {element.source.name}/>
                        </div>
           } )}
           </div>
