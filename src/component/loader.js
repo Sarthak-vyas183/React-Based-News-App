@@ -4,8 +4,7 @@ export class loader extends Component {
   render() { 
     return (
       <div className='text-center'>
-        <img src={Loader} alt="" />
-      
+        <img src={Loader} alt=""/>
       </div>
     )
   }
