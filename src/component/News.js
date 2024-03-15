@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import NewsItem from './NewsItem';
 import Loader from './loader';
 import PropTypes from 'prop-types';
+import InfiniteScroll from "react-infinite-scroll-component";
+
 
 
 export class News extends Component {
@@ -15,13 +17,15 @@ static propTypes = {
   pageSize : PropTypes.number,
   category : PropTypes.string,
  }
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       articles: this.articles, 
       loading: false,
-      page : 1
+      page : 1,
+      totalResults : 0
     }
+    document.title = `${this.capitalizeFirstLetter(this.props.category)} - NewsMonkey`;
   }
     async updateNews(pageNo) {
       const url = `https://newsapi.org/v2/top-headlines?country=in&category=${this.props.category}&apikey=a08e6303e4dc4c299a8910e7bb29347c&page=${this.state.page}&pageSize=${this.props.pageSize}`;
@@ -74,13 +78,34 @@ static propTypes = {
     this.updateNews()
 
 }
+fetchMoreData = async () => {
+ this.setState({page : this.state.page + 1})
+ const url = `https://newsapi.org/v2/top-headlines?country=in&category=${this.props.category}&apikey=a08e6303e4dc4c299a8910e7bb29347c&page=${this.state.page}&pageSize=${this.props.pageSize}`;
+ this.setState({loading:true})
+ let data = await fetch(url);
+ let parsedData = await data.json();
+ this.setState({
+    articles: this.state.articles.concat(parsedData.articles),
+    totalResult:parsedData.totalResult ,
+    loading : false});
+
+};
+
+ capitalizeFirstLetter =  (string)=> {
+  return string.charAt(0).toUpperCase() + string.slice(1);
+}
 
   render() {
     return (
       <div>
-        <div className='container my-4'>
-          <h1 className='text-center '>MonkeyNews headline : </h1>
-          {this.state.loading && <Loader/>}
+          <h1 className='text-center '> Top {this.capitalizeFirstLetter(this.props.category)} headline </h1>
+          <InfiniteScroll
+          dataLength={this.state.articles ? this.state.articles.length : 0} 
+          next={this.fetchMoreData} 
+          hasMore={this.state.articles ? this.state.articles.length !== this.state.totalResults : false} 
+          loader= {this.state.loading && <Loader />}
+> 
+         <div className="container">
           <div className="row my-4">
           {this.state.articles && this.state.articles.map((element) => {
               return    <div className="col-md-4" key={element.url}>
@@ -88,13 +113,10 @@ static propTypes = {
                        </div>
           } )}
           </div>
-
-          <div className='container btn-primary d-flex justify-content-between'>
-  <button type="button" disabled={this.state.page<=1} className="btn btn-dark" onClick={this.handleprevclick} > &larr; Previous</button>
-  <button type="button"  disabled={this.state.page > Math.ceil(this.state.totalResult/this.props.pageSize)} className="btn btn-dark" onClick={this.handlenextclick} >  Next &rarr;</button>
-  </div>
+          </div>
+         </InfiniteScroll>
+         
         </div>
-      </div>
     )
   }
 }
