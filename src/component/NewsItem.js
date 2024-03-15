@@ -11,7 +11,7 @@ export class NewsItem extends Component {
   <div className="card" style={{width: "18rem"}}>
   <img src={!imgUrl?"https://c.ndtvimg.com/2023-12/4l1gu19o_sbi-_625x300_04_December_23.jpeg":imgUrl} className="card-img-top" alt="..."/>
   <div className="card-body">
-    <h5 className="card-title"> {title}  <span class="position-absolute top-0 left-10  translate-small badge rounded-pill bg-success" style={{left:'75%' , zIndex:1 }}>
+    <h5 className="card-title"> {title}  <span className="position-absolute top-0 left-10  translate-small badge rounded-pill bg-success" style={{left:'75%' , zIndex:1 }}>
    {source}
     
   </span></h5>
