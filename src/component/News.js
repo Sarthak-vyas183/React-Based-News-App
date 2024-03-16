@@ -97,7 +97,7 @@ fetchMoreData = async () => {
 
   render() {
     return (
-      <div>
+      <div className='container'>
           <h1 className='text-center '> Top {this.capitalizeFirstLetter(this.props.category)} headline </h1>
           <InfiniteScroll
           dataLength={this.state.articles ? this.state.articles.length : 0} 

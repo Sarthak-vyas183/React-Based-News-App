@@ -1,3 +1,7 @@
+body{
+  overflow-x: hidden;
+}
+
 .footer {
   
   width: 99vw;
@@ -75,4 +79,18 @@
    height: 0.5px;
    background-color: black;
   }
-  
+  /* Navbar css  */
+  .navbar{
+    position: fixed;
+    top: 0;
+    z-index: 11;
+    width: 100vw;
+  }
+  #Navbar {
+    background-color: black;
+    color: white;
+  }
+  .container{
+   margin-top: 10vh;
+   overflow-x: hidden;
+  }
