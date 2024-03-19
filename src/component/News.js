@@ -103,7 +103,8 @@ fetchMoreData = async () => {
           dataLength={this.state.articles ? this.state.articles.length : 0} 
           next={this.fetchMoreData} 
           hasMore={this.state.articles ? this.state.articles.length !== this.state.totalResults : false} 
-          loader= {this.state.loading && <Loader />}
+          loader={this.state.loading && <Loader />}
+     
 > 
          <div className="container">
           <div className="row my-4">
